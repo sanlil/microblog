@@ -3,8 +3,10 @@ Rails.application.routes.draw do
     
   get '/users',           to: 'users#list'
   get '/users/:id',       to: 'users#show'
+  post '/users',          to: 'users#create'
 
   get '/microposts',      to: 'microposts#list'
   get '/microposts/:id',  to: 'microposts#show'
+  post '/microposts',     to: 'microposts#create'
   
 end
