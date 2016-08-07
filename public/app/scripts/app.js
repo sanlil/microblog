@@ -8,5 +8,26 @@
  *
  * Main module of the application.
  */
-angular
-  .module('microblogApp', []);
+var app = angular.module('microblogApp', [
+    'ngRoute'
+  ]);
+
+app.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        activetab: 'login'
+      }).
+      when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UsersCtrl',
+        activetab: 'users'
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
+  }]);
+
+

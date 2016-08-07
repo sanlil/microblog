@@ -1,0 +1,6 @@
+<div class="row">
+    <h2>Users</h2>
+    <ul>
+        <li ng-repeat="user in users">{{user.name}}, {{user.email}}, {{user.created_at | date:'mediumDate'}} {{user.created_at | date:'shortTime'}}</li>
+    </ul>
+</div>
