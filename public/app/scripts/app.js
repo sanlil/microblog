@@ -25,6 +25,11 @@ app.config(['$routeProvider',
         controller: 'UsersCtrl',
         activetab: 'users'
       }).
+      when('/users/:id', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl',
+        activetab: 'users'
+      }).
       otherwise({
         redirectTo: '/'
       });

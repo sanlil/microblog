@@ -1,6 +1,10 @@
 <div class="row">
-    <h2>Users</h2>
-    <ul>
-        <li ng-repeat="user in users">{{user.name}}, {{user.email}}, {{user.created_at | date:'mediumDate'}} {{user.created_at | date:'shortTime'}}</li>
-    </ul>
+    <div class="col-sm-12">
+        <h2>Users</h2>
+        <ul>
+            <li ng-repeat="user in users">
+                <a ng-href="#/users/{{user.id}}">{{user.name}}</a>, {{user.email}}, {{user.created_at | date:'mediumDate'}} {{user.created_at | date:'shortTime'}}
+            </li>
+        </ul>
+    </div>
 </div>
