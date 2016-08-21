@@ -19,6 +19,33 @@ angular.module('microblogApp')
       $scope.login = function() {
         console.log('CLICK LOGIN!');
         console.log('email: ' + $scope.loginEmail + ' password: ' + $scope.loginPassword);
+
+        var dataObj = {
+            email : $scope.loginEmail,
+            password : $scope.loginPassword,
+          };
+
+        $http({
+            method: 'POST',
+            url: ConfigService.apiUrl() + 'login',
+            data: {'session': dataObj},
+            headers: { 'Content-Type': 'application/json' }
+          })
+          .success(function (data, status, headers, config) {
+            console.log('LOGIN SUCCESS!');
+            console.log('data:', data);
+            console.log('status:', status);
+            $scope.loginErrors = '';
+            $location.path('/users/' + data.user.id);
+            
+          })
+          .error(function (data, status, headers, config) {
+            console.log( 'failure message: ' + JSON.stringify({data: data}));
+            console.log('data:', data);
+            console.log('status:', status);
+            $scope.loginErrors = data;
+          });
+
       };
 
       $scope.signup = function() {

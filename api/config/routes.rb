@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   get '/microposts',      to: 'microposts#list'
   get '/microposts/:id',  to: 'microposts#show'
   post '/microposts',     to: 'microposts#create'
+
+  post '/login',      to: 'sessions#create'
+  delete '/logout',   to: 'sessions#destroy'
   
 end
