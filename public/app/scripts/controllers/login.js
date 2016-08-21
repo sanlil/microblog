@@ -8,8 +8,8 @@
  * Controller of the microblogApp
  */
 angular.module('microblogApp')
-  .controller('LoginCtrl', ['$scope', '$http', '$location', 'ConfigService',
-    function ($scope, $http, $location, ConfigService) {
+  .controller('LoginCtrl', ['$scope', '$http', '$location', 'ConfigService', 'CurrentUserService',
+    function ($scope, $http, $location, ConfigService, CurrentUserService) {
       
       $scope.email = '';
       $scope.password = '';
@@ -35,9 +35,9 @@ angular.module('microblogApp')
             console.log('LOGIN SUCCESS!');
             console.log('data:', data);
             console.log('status:', status);
+            CurrentUserService.setUser(data.user);
             $scope.loginErrors = '';
             $location.path('/users/' + data.user.id);
-            
           })
           .error(function (data, status, headers, config) {
             console.log( 'failure message: ' + JSON.stringify({data: data}));
