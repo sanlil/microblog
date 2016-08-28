@@ -4,29 +4,19 @@ class ApplicationController < ActionController::API
       request.format = :json
   end
 
-  # Places a temporary cookie on the user’s browser containing an encrypted version of the user’s id
-  def log_in(user)
-    session[:user_id] = user.id
-  end
-  #helper_method :log_in
-
-  # Returns the current logged-in user (if any).
+  
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    current_user ||= User.find_by(auth_token: request.headers['Authorization'])
   end
-  #helper_method :current_user
 
-  # Returns true if the user is logged in, false otherwise.
+  def authenticate_with_token
+    render json: { errors: "Not authenticated" },
+                status: :unauthorized unless logged_in?
+  end
+
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
-  #helper_method :logged_in?
 
-  # Logs out the current user.
-  def log_out
-    session.delete(:user_id)
-    @current_user = nil
-  end
-  #helper_method :log_out
 
 end

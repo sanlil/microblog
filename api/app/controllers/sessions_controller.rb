@@ -1,20 +1,20 @@
 class SessionsController < ApplicationController
-
-  def new
-  end
+  before_action :authenticate_with_token, except: [:create]
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      log_in user
-      @current_user = User.find_by(id: session[:user_id])
+    @user = User.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
+      @user.save!
     else
-      render status: :unprocessable_entity, text: user.errors.full_messages
+      render status: :unprocessable_entity, body: @user.errors.full_messages
     end
   end
 
   def destroy
-    log_out
+    user = current_user
+    user.generate_authentication_token
+    user.save!
+    head :no_content
   end
 
 end

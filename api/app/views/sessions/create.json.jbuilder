@@ -1,7 +1,8 @@
 json.user do
-  json.id @current_user.id
-  json.name @current_user.name
-  json.email @current_user.email
-  json.created_at @current_user.created_at
-  json.updated_at @current_user.updated_at
+  json.id @user.id
+  json.auth_token @user.auth_token
+  json.name @user.name
+  json.email @user.email
+  json.created_at @user.created_at
+  json.updated_at @user.updated_at
 end
