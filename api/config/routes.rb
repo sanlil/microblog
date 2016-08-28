@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     
   get '/users',           to: 'users#list'
   get '/users/:id',       to: 'users#show'
+  get '/user',            to: 'users#show_current'
   post '/users',          to: 'users#create'
 
   get '/microposts',      to: 'microposts#list'

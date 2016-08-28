@@ -1,5 +1,6 @@
 json.user do
   json.id @user.id
+  json.auth_token @user.auth_token if @login or @user == @current_user
   json.name @user.name
   json.email @user.email
   json.created_at @user.created_at
