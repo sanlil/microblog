@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('microblogApp')
-  .factory('CurrentUserService', function($rootScope) {
+  .factory('CurrentUserService', function($rootScope, $http, ConfigService) {
 
     var user = null;
 
@@ -10,7 +10,7 @@ angular.module('microblogApp')
       setUser: function(userData) {
         console.log('setUser()', userData);
         user = userData;
-        $rootScope.$broadcast('login-done');
+        $rootScope.$broadcast('user-updated');
       },
 
       getUser: function() {
@@ -18,19 +18,32 @@ angular.module('microblogApp')
       },
 
       getName: function() {
-        return user.name;
+        if (user) {
+          return user.name;
+        } else {
+          return null;
+        }
       },
 
       getPicture: function() {
-        return user.img;
+        if (user && user.img) {
+          return user.img;
+        } else {
+          return null;
+        }
       },
 
       getId: function() {
-        return user.id;
+        if (user) {
+          return user.id;
+        } else {
+          return null;
+        }
       },
 
       clearUser: function() {
         user = null;
+        $rootScope.$broadcast('user-updated');
       }
 
     };

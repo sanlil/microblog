@@ -9,16 +9,22 @@ angular.module('microblogApp')
       $('.modal-backdrop').hide();
 
       var getAllUsers = function() {
-        $http.get(ConfigService.apiUrl() + 'users')
-          .success(function(data) {
-            console.log('success');
-            console.log(data);
-            $scope.users = data.users;
-          })
-          .error(function(data) {
-            console.log('error');
-            console.log(data);
-          });
+        $http({
+          method: 'GET',
+          url: ConfigService.apiUrl() + 'users',
+          headers: {
+            'Authorization': ConfigService.getToken()
+          }
+        })
+        .success(function(data) {
+          console.log('success');
+          console.log(data);
+          $scope.users = data.users;
+        })
+        .error(function(data) {
+          console.log('error');
+          console.log(data);
+        });
       };
 
       getAllUsers();

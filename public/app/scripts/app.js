@@ -9,7 +9,8 @@
  * Main module of the application.
  */
 var app = angular.module('microblogApp', [
-    'ngRoute'
+    'ngRoute',
+    'ngCookies'
   ]);
 
 app.config(['$routeProvider',

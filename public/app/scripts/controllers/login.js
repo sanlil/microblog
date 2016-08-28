@@ -8,8 +8,8 @@
  * Controller of the microblogApp
  */
 angular.module('microblogApp')
-  .controller('LoginCtrl', ['$scope', '$http', '$location', 'ConfigService', 'CurrentUserService',
-    function ($scope, $http, $location, ConfigService, CurrentUserService) {
+  .controller('LoginCtrl', ['$scope', '$http', '$location', '$cookieStore', 'ConfigService', 'CurrentUserService',
+    function ($scope, $http, $location, $cookieStore, ConfigService, CurrentUserService) {
       
       $scope.email = '';
       $scope.password = '';
@@ -36,6 +36,8 @@ angular.module('microblogApp')
             console.log('data:', data);
             console.log('status:', status);
             CurrentUserService.setUser(data.user);
+            $cookieStore.put('auth_token', data.user.auth_token);
+            console.log('Saved from cookieStore: ' + $cookieStore.get('auth_token'));
             $scope.loginErrors = '';
             $location.path('/users/' + data.user.id);
           })
@@ -69,6 +71,7 @@ angular.module('microblogApp')
           .success(function (data, status, headers, config) {
             console.log('data:', data);
             console.log('status:', status);
+            $cookieStore.put('auth_token', data.user.auth_token);
             $scope.signupErrors = '';
             $('#signupModal').modal('hide');
             $location.path('/users');
