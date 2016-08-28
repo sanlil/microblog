@@ -5,6 +5,8 @@ class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Example User", email: "user@example.com",
                       password: "foobar", password_confirmation: "foobar")
+    @other_user = User.new(name: "Another User", email: "user2@example.com",
+                      password: "foobar", password_confirmation: "foobar")
   end
 
   test "should be valid" do
@@ -49,21 +51,21 @@ class UserTest < ActiveSupport::TestCase
 
   test "email addresses should be unique" do
     duplicate_user = @user.dup
-    @user.save
+    @user.save!
     assert_not duplicate_user.valid?
   end
 
   test "email addresses should be unique, despite different casing" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
-    @user.save
+    @user.save!
     assert_not duplicate_user.valid?
   end
 
   test "email addresses should be saved as lower-case" do
     mixed_case_email = "Foo@ExAMPle.CoM"
     @user.email = mixed_case_email
-    @user.save
+    @user.save!
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
@@ -80,6 +82,43 @@ class UserTest < ActiveSupport::TestCase
   test "password should have a minimum length" do
     @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
+  end
+
+  test "user has attribute auth_token" do
+    assert @user.has_attribute?(:auth_token)
+  end
+
+  test "authentication token is unique" do
+    @user.save!
+    assert @user.valid?
+
+    @other_user.auth_token = @user.auth_token
+    assert_not @other_user.valid?
+  end
+
+  test "should generate authentication token" do
+    @user.generate_authentication_token
+    assert @user.auth_token.present?
+  end
+
+  test "should generate authentication token on save" do
+    @user.save!
+    assert @user.auth_token.present?
+  end
+
+  test "should generate unique authentication token" do
+    @user.save!
+    @other_user.save!
+    assert @user.auth_token.present?
+    assert @other_user.auth_token.present?
+    assert_not_equal @user.auth_token, @other_user.auth_token
+  end
+
+  test "can save to database" do
+    assert_nil @user.id
+    @user.save!
+    @user.reload
+    assert @user.valid?
   end
 
 end
