@@ -71,6 +71,7 @@ angular.module('microblogApp')
           .success(function (data, status, headers, config) {
             console.log('data:', data);
             console.log('status:', status);
+            CurrentUserService.setUser(data.user);
             $cookieStore.put('auth_token', data.user.auth_token);
             $scope.signupErrors = '';
             $('#signupModal').modal('hide');
