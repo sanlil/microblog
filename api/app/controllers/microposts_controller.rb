@@ -1,21 +1,23 @@
 class MicropostsController < ApplicationController
-    
-  def show
-    @micropost = Micropost.find(params[:id])
-  end
+  before_action :authenticate_with_token
 
   def list
-    @microposts = Micropost.all
+    user_id = params[:user_id]
+    if User.where(id: user_id).present?
+      @microposts = Micropost.where(:user_id => user_id)
+    else
+      render status: :unprocessable_entity, body: "Incorrect user id"
+    end
   end
 
   def create
     @micropost = Micropost.new
     @micropost.content = params[:content]
-    @micropost.user_id = params[:user_id]
+    @micropost.user_id = current_user.id
     if @micropost.save
       render 'show'
     else
-      render(json: { errors: @user.errors.full_messages, status: 422})
+      render status: :unprocessable_entity, body: @micropost.errors.full_messages
     end
   end
 

@@ -6,9 +6,8 @@ Rails.application.routes.draw do
   get '/user',            to: 'users#show_current'
   post '/users',          to: 'users#create'
 
-  get '/microposts',      to: 'microposts#list'
-  get '/microposts/:id',  to: 'microposts#show'
-  post '/microposts',     to: 'microposts#create'
+  get '/microposts/:user_id', to: 'microposts#list'
+  post '/microposts',         to: 'microposts#create'
 
   post '/login',      to: 'sessions#create'
   delete '/logout',   to: 'sessions#destroy'
