@@ -1,12 +1,38 @@
-<div class="row">
-    <div class="col-sm-2">
-        <img ng-src="{{user.img}}" alt="{{user.name}}" class="gravatar">
+<div id="user-page">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- #d9edf7 -->
+            <div class="user-info-box col-sm-12">
+                <div class="col-sm-2">
+                    <img ng-src="{{user.img}}" alt="{{user.name}}" class="gravatar">
+                </div>
+                <div class="col-sm-9">
+                    <h2>{{user.name}}</h2>
+                    <p>
+                        <b>Email:</b> {{user.email}}<br>
+                        <b>Member since:</b> {{user.created_at | date:'mediumDate'}}
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <a href="#/create"><span class="glyphicon glyphicon-pencil"></span></a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-10">
-        <h2 style="margin-top:0">{{user.name}}</h2>
-        <p>
-            <b>Email:</b> {{user.email}}<br>
-            <b>Member since:</b> {{user.created_at | date:'mediumDate'}}
-        </p>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                <!-- <li class="list-group-item active"> -->
+                    <h4>Microposts</h4>
+                </li>
+                <li ng-repeat="post in microposts" class="list-group-item">
+                    <p>
+                        <h5 class="list-group-item-heading">{{user.name}} - {{post.created_at | date:'MMM d'}}, {{post.created_at | date:'shortTime'}}</h5>
+                        <p class="list-group-item-text">{{post.content}}</p>
+                    </p>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
