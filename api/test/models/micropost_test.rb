@@ -5,7 +5,7 @@ class MicropostTest < ActiveSupport::TestCase
   def setup
     @user = User.create(name: "Example User", email: "user@example.com",
                       password: "foobar", password_confirmation: "foobar")
-    @micropost = Micropost.new(user_id: @user.id, content: "lorem ipsum")
+    @micropost = @user.microposts.build(content: "Lorem ipsum")
   end
 
   test "should be valid" do
@@ -18,13 +18,21 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test "content must be present" do
-    @micropost.content = nil
+    @micropost.content = ""
     assert_not @micropost.valid?
   end
 
   test "content must not be too long" do
     @micropost.content = "a" * 141
     assert_not @micropost.valid?
+  end
+
+  test "order should be most recent first" do
+    assert_equal microposts(:most_recent), Micropost.first
+  end
+
+  test "order should be least recent last" do
+    assert_equal microposts(:tau_manifesto), Micropost.last
   end
 
 end
