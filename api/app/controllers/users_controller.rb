@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     #puts params.inspect
     @user = User.find(params[:id])
+    @microposts = @user.microposts
     #@ => instansvariable => finns i vyn
     #@user = User.where(...)
     #render '/_user' #vyn (annars users/show.json.jbuilder)
