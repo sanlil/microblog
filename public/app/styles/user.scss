@@ -16,6 +16,18 @@
             font-size: 1.5em;
             margin-top: 65px;
         }
+
+        .glyphicon:hover {
+            cursor: pointer;
+        }
+    }
+
+    .microposts {
+
+        .glyphicon:hover {
+            color: gray;
+            cursor: pointer;
+        }
     }
 
 

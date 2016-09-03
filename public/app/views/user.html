@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row microposts">
         <div class="col-sm-12">
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
@@ -27,10 +27,17 @@
                     <h4>Microposts</h4>
                 </li>
                 <li ng-repeat="post in microposts" class="list-group-item">
-                    <p>
-                        <h5 class="list-group-item-heading">{{user.name}} - {{post.created_at | date:'MMM d'}}, {{post.created_at | date:'shortTime'}}</h5>
-                        <p class="list-group-item-text">{{post.content}}</p>
-                    </p>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p>
+                                <h5 class="list-group-item-heading">{{user.name}} - {{post.created_at | date:'MMM d'}}, {{post.created_at | date:'shortTime'}}</h5>
+                                <p class="list-group-item-text">{{post.content}}</p>
+                            </p>
+                        </div>
+                        <div class="col-sm-1">
+                            <span class="glyphicon glyphicon-remove pull-right" ng-click="deletePost(post.id)"></span>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>

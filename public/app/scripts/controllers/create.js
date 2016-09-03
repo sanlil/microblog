@@ -10,7 +10,7 @@ angular.module('microblogApp')
         $http({
           method: 'POST',
           url: ConfigService.apiUrl() + 'microposts',
-          data: {'content': $scope.micropost},
+          data: {'micropost': {'content': $scope.micropost}},
           headers: {
             'Content-Type': 'application/json',
             'Authorization': ConfigService.getToken()
@@ -21,11 +21,13 @@ angular.module('microblogApp')
           console.log('data:', data);
           console.log('status:', status);
           $scope.micropost = '';
+          $location.path('/users/' + CurrentUserService.getId());
         })
         .error(function (data, status, headers, config) {
           console.log( 'failure message: ' + JSON.stringify({data: data}));
           console.log('data:', data);
           console.log('status:', status);
+          $scope.errors = data;
         });
       } else {
         console.log('Error! No content!');

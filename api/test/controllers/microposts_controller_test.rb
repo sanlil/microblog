@@ -28,7 +28,7 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
   test "create micropost" do
     assert_equal 2, Micropost.where(user_id: @user.id).length
     post microposts_path, headers: {"Authorization" => @user.auth_token},
-                          params: {"content" => "lorem", "user_id" => 1}
+                          params: {"micropost" => {"content" => "lorem"}}
     assert_response :success
 
     micropost = JSON.parse(response.body)["micropost"]
@@ -37,11 +37,11 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with content too long" do
-    microposts_count = Micropost.all.length
+    microposts_count = Micropost.count
     post microposts_path, headers: {"Authorization" => @user.auth_token},
-                          params: {"content" => "a"*141}
+                          params: {"micropost" => {"content" => "a"*141}}
     assert_response :unprocessable_entity
-    assert_equal microposts_count, Micropost.all.length
+    assert_equal microposts_count, Micropost.count
   end
 
   test "create with invalid auth token" do
@@ -50,6 +50,30 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
                           params: {"content" => "lorem"}
     assert_response :unauthorized
     assert_equal microposts_count, Micropost.all.length
+  end
+
+  test "should delete micropost" do
+    assert_difference 'Micropost.count', -1 do
+      delete microposts_path + "/" + @micropost1.id.to_s, headers: {"Authorization" => @user.auth_token}
+    end
+    assert_response :success
+  end
+
+  test "should not delete others micropost" do
+    @user2 = User.create(name: "User2", email: "user2@example.com",
+                      password: "foobar", password_confirmation: "foobar")
+    assert_no_difference 'Micropost.count' do
+      delete microposts_path + "/" + @micropost1.id.to_s, headers: {"Authorization" => @user2.auth_token}
+    end
+    assert_response :unauthorized
+  end
+
+  test "should return unprocessable entity" do
+    invalid_micropost_id = (@micropost1.id + 100).to_s
+    assert_no_difference 'Micropost.count' do
+      delete microposts_path + "/" + invalid_micropost_id, headers: {"Authorization" => @user.auth_token}
+    end
+    assert_response :unprocessable_entity
   end
 
 end

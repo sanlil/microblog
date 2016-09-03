@@ -16,18 +16,33 @@ angular.module('microblogApp')
           }
         })
         .success(function(data) {
-          console.log('success');
-          console.log(data);
           $scope.user = data.user;
           $scope.microposts = data.user.microposts;
         })
         .error(function(data) {
-          console.log('error');
           console.log(data);
         });
       };
-
       getUserData();
+
+      $scope.deletePost = function(micropostId) {
+        console.log('DELETE, id: ' + micropostId);
+        $http({
+          method: 'DELETE',
+          url: ConfigService.apiUrl() + 'microposts/' + micropostId,
+          headers: {
+            'Authorization': ConfigService.getToken()
+          }
+        })
+        .success(function(data) {
+          console.log('success');
+          console.log(data);
+          $scope.microposts = data.microposts;
+        })
+        .error(function(data) {
+          console.log(data);
+        });
+      };
 
     }
     

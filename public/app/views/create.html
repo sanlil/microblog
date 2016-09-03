@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
-        <h2>Write new post</h2>
-        <form ng-submit="post()">
+        <h2 class="row">Write new post</h2>
+        <form ng-submit="post()" class="row">
             <div class="form-group">
                 <textarea class="form-control" rows="3" ng-model="micropost"></textarea>
             </div>
@@ -11,5 +11,8 @@
                 </button>
             </div>
         </form>
+        <ul style="color:red" class="row">
+          <li ng-repeat="error in errors">{{error}}</li>
+        </ul>
     </div>
 </div>
