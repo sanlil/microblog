@@ -41,6 +41,14 @@ angular.module('microblogApp')
         }
       },
 
+      getMicroposts: function() {
+        if (user && user.microposts) {
+          return user.microposts;
+        } else {
+          return null;
+        }
+      },
+
       clearUser: function() {
         user = null;
         $rootScope.$broadcast('user-updated');

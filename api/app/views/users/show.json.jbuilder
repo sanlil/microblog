@@ -6,4 +6,6 @@ json.user do
   json.created_at @user.created_at
   json.updated_at @user.updated_at
   json.img gravatar_for(@user, 90)
+  json.microposts @user.microposts
+  json.micropost_count @user.microposts.count
 end

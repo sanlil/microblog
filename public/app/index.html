@@ -26,6 +26,7 @@
           <li ng-class="{active: $route.current.activetab == 'login'}"><a ng-href="#">Home</a></li>
           <li ng-class="{active: $route.current.activetab == 'about'}"><a ng-href="#/about">About</a></li>
           <li ng-class="{active: $route.current.activetab == 'users'}"><a ng-href="#/users">Users</a></li>
+          <li ng-class="{active: $route.current.activetab == 'create'}"><a ng-href="#/create">Write new</a></li>
           <li class="dropdown" ng-show="isLoggedIn">
             <a id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{username}} <span class="caret"></span> </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
@@ -94,6 +95,7 @@
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/users.js"></script>
         <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/create.js"></script>
         <!-- endbuild -->
 </body>
 </html>

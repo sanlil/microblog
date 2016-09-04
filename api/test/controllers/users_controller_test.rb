@@ -14,7 +14,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     users = JSON.parse(response.body)["users"]
 
-    assert 2, users.length
+    assert_equal 2, users.length
     assert "First User", users[0]["name"]
     assert "Second User", users[1]["name"]
   end
@@ -26,12 +26,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show user" do
+    @user2.microposts.build(content: "Lorem ipsum")
+    @user2.save!
+
     get users_path + "/2", headers: { "Authorization" => @user.auth_token }
     assert_response :success
 
     assert response.body.present?
     assert JSON.parse(response.body)["user"].present?
-    assert 2, JSON.parse(response.body)["user"]["id"]
+    assert_equal 2, JSON.parse(response.body)["user"]["id"]
+    assert JSON.parse(response.body)["user"]["microposts"].present?
+    assert_equal 1, JSON.parse(response.body)["user"]["microposts"].length
     assert_not JSON.parse(response.body)["user"]["auth_token"].present?
   end
 
@@ -41,7 +46,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert response.body.present?
     assert JSON.parse(response.body)["user"].present?
-    assert 1, JSON.parse(response.body)["user"]["id"]
+    assert_equal 1, JSON.parse(response.body)["user"]["id"]
     assert JSON.parse(response.body)["user"]["auth_token"].present?
   end
 
@@ -50,9 +55,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                 name: "Third User", email: "user3@example.com",
                 password: "foobar", password_confirmation: "foobar"}}
     assert_response :success
-    assert 3, JSON.parse(response.body)["user"]["id"]
+    assert_equal 3, JSON.parse(response.body)["user"]["id"]
     assert JSON.parse(response.body)["user"]["auth_token"].present?
   end
-
 
 end
