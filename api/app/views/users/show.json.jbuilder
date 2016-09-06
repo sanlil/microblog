@@ -8,4 +8,8 @@ json.user do
   json.img gravatar_for(@user, 90)
   json.microposts @user.microposts
   json.micropost_count @user.microposts.count
+  json.following @user.following
+  json.followers @user.followers
+  json.following_count @user.following.count
+  json.followers_count @user.followers.count
 end

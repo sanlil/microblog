@@ -129,4 +129,26 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "should follow and unfollow a user" do
+    @user.save!
+    @other_user.save!
+    assert_not @user.following?(@other_user)
+    @user.follow(@other_user)
+    assert @user.following?(@other_user)
+    assert @other_user.followers.include?(@user)
+    @user.unfollow(@other_user)
+    assert_not @user.following?(@other_user)
+  end
+
+  test "cannot follow same twice" do
+    @user.save!
+    @other_user.save!
+    assert_difference '@user.following.count', 1 do
+      @user.follow(@other_user)
+    end
+    assert_no_difference '@user.following.count' do
+      @user.follow(@other_user)
+    end
+  end
+
 end
