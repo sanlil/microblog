@@ -23,7 +23,6 @@ angular.module('microblogApp')
           console.log(data);
         });
       };
-      getUserData();
 
       $scope.deletePost = function(micropostId) {
         console.log('DELETE, id: ' + micropostId);
@@ -43,6 +42,61 @@ angular.module('microblogApp')
           console.log(data);
         });
       };
+
+      $scope.follow = function() {
+        $http({
+          method: 'POST',
+          url: ConfigService.apiUrl() + 'follow/' + $routeParams.id,
+          headers: {
+            'Authorization': ConfigService.getToken()
+          }
+        })
+        .success(function(data) {
+          console.log(data);
+          CurrentUserService.setUser(data.user);
+        })
+        .error(function(data) {
+          console.log(data);
+        });
+      };
+      
+      $scope.unfollow = function() {
+        $http({
+          method: 'DELETE',
+          url: ConfigService.apiUrl() + 'unfollow/' + $routeParams.id,
+          headers: {
+            'Authorization': ConfigService.getToken()
+          }
+        })
+        .success(function(data) {
+          console.log(data);
+          CurrentUserService.setUser(data.user);
+        })
+        .error(function(data) {
+          console.log(data);
+        });
+      };
+
+      $scope.isOwnProfilePage = function() {
+        return ($scope.userId === CurrentUserService.getId());
+      };
+
+      $scope.doesFollowUser = function() {
+        return idInFollowList($scope.userId);
+      };
+
+      var idInFollowList = function(userId) {
+        var list = CurrentUserService.getFollowing();
+        var filteredList = list.filter(function(o) {
+            return o.id === userId;
+          });
+        return filteredList.length >= 1;
+      };
+
+      (function() {
+        getUserData();
+        $scope.userId = parseInt($routeParams.id, 10);
+      })();
 
     }
     

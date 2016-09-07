@@ -49,6 +49,22 @@ angular.module('microblogApp')
         }
       },
 
+      getFollowers: function() {
+        if (user && user.followers) {
+          return user.followers;
+        } else {
+          return [];
+        }
+      },
+
+      getFollowing: function() {
+        if (user && user.following) {
+          return user.following;
+        } else {
+          return [];
+        }
+      },
+
       clearUser: function() {
         user = null;
         $rootScope.$broadcast('user-updated');

@@ -29,15 +29,6 @@ class UsersController < ApplicationController
   end
 
 
-  # Helper methods
-  def gravatar_for(user, size)
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    return gravatar_url
-  end
-  helper_method :gravatar_for
-
-
   # Protected methods
   protected
 

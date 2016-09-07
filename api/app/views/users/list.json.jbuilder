@@ -4,5 +4,5 @@ json.users @users do |user|
   json.email user.email
   json.created_at user.created_at
   json.updated_at user.updated_at
-  json.img gravatar_for(user, 70)
+  json.img user.gravatar(70)
 end

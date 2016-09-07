@@ -42,4 +42,9 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def gravatar(size)
+    gravatar_id = Digest::MD5::hexdigest(email.downcase)
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  end
+
 end
