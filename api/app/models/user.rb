@@ -49,7 +49,11 @@ class User < ApplicationRecord
 
   def gravatar(size)
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
-    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+    if gravatar_id.include?("c028674a9112c6952d8b1990084c5d0e")
+      return nil
+    else
+      return "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+    end
   end
 
 end

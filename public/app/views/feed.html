@@ -29,7 +29,7 @@
             <li ng-repeat="micropost in feed" class="list-group-item">
                 <div class="row">
                     <div class="user-img col-sm-2">
-                        <img ng-src="{{micropost.user.img}}"/>
+                        <img ng-src="{{micropost.user.img || 'images/avatar.png'}}"/>
                     </div>
                     <div class="content col-sm-10">
                             <p class="list-group-item-heading">

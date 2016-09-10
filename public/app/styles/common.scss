@@ -1,0 +1,47 @@
+/* Common styling elements */
+
+$primary-color: #337ab7;
+$secondary-color: #4f9fcf;
+/*$primary-color: #009999;
+$secondary-color: #BAE3E3;*/
+
+.content-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+}
+
+nav.navbar-default {
+  background: white;
+  border-bottom: 2px solid #ddd;
+
+  .navbar-brand {
+    line-height: 30px;
+  }
+
+  .user-img {
+    display: inline-block;
+    
+    img {
+      width: 30px;
+      margin-right: 3px;
+      border-radius: 50%;
+    }
+  }
+
+  li.nav-button > a {
+    line-height: 26px;
+  }
+  li.nav-button:hover {
+    /*border-bottom: 4px solid #888;*/
+    border-bottom: 4px solid $primary-color;
+  }
+  li.nav-button.active {
+    /*border-bottom: 4px solid #888;*/
+    border-bottom: 4px solid $primary-color;
+  }
+}
+
+.error-message {
+    color: red;
+}

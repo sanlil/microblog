@@ -1,11 +1,7 @@
 'use strict';
 
 /**
- * @ngdoc function
- * @name microblogApp.controller:LoginctrlCtrl
- * @description
- * # LoginctrlCtrl
- * Controller of the microblogApp
+ * Login controller of the microblogApp
  */
 angular.module('microblogApp')
   .controller('LoginCtrl', ['$scope', '$http', '$location', '$cookieStore', 'ConfigService', 'CurrentUserService',
@@ -13,13 +9,10 @@ angular.module('microblogApp')
       
       $scope.email = '';
       $scope.password = '';
-      $scope.loginErrors = '';
-      $scope.signupErrors = '';
+      $scope.loginError = '';
+      $scope.signupErrors = [];
 
       $scope.login = function() {
-        console.log('CLICK LOGIN!');
-        console.log('email: ' + $scope.loginEmail + ' password: ' + $scope.loginPassword);
-
         var dataObj = {
             email : $scope.loginEmail,
             password : $scope.loginPassword,
@@ -31,30 +24,21 @@ angular.module('microblogApp')
             data: {'session': dataObj},
             headers: { 'Content-Type': 'application/json' }
           })
-          .success(function (data, status, headers, config) {
-            console.log('LOGIN SUCCESS!');
-            console.log('data:', data);
-            console.log('status:', status);
+          .success(function (data) {
+            console.log('login response:', data);
             CurrentUserService.setUser(data.user);
             $cookieStore.put('auth_token', data.user.auth_token);
-            console.log('Saved from cookieStore: ' + $cookieStore.get('auth_token'));
-            $scope.loginErrors = '';
-            $location.path('/users/' + data.user.id);
+            $scope.loginError = '';
+            $location.path('/feed');
           })
-          .error(function (data, status, headers, config) {
-            console.log( 'failure message: ' + JSON.stringify({data: data}));
-            console.log('data:', data);
-            console.log('status:', status);
-            $scope.loginErrors = data;
+          .error(function (data) {
+            console.log('Unsuccessful login:', data);
+            $scope.loginError = data;
           });
 
       };
 
       $scope.signup = function() {
-        console.log('CLICK SIGNUP!');
-
-        console.log('email: ' + $scope.signupEmail + ' name: ' + $scope.signupName + ' password: ' + $scope.signupPassword + ' confirm: ' + $scope.confirmPassword);
-
         var dataObj = {
             name : $scope.signupName,
             email : $scope.signupEmail,
@@ -68,21 +52,17 @@ angular.module('microblogApp')
             data: {user: dataObj},
             headers: { 'Content-Type': 'application/json' }
           })
-          .success(function (data, status, headers, config) {
-            console.log('data:', data);
-            console.log('status:', status);
+          .success(function (data) {
+            console.log('Signup response:', data);
             CurrentUserService.setUser(data.user);
             $cookieStore.put('auth_token', data.user.auth_token);
             $scope.signupErrors = '';
             $('#signupModal').modal('hide');
-            $location.path('/users');
-            
+            $location.path('/users/' + data.user.id);
           })
-          .error(function (data, status, headers, config) {
-            console.log( 'failure message: ' + JSON.stringify({data: data}));
-            console.log('data:', data);
-            console.log('status:', status);
-            $scope.signupErrors = data;
+          .error(function (data) {
+            console.log('Unsuccessful signup:', data);
+            $scope.signupErrors = data.errors;
           });
       };
 

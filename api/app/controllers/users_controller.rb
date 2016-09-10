@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       @login = true
       render 'show'
     else
-      render status: :unprocessable_entity, body: @user.errors.full_messages
+      render status: :unprocessable_entity, json: {errors: @user.errors.full_messages}
     end
   end
 

@@ -3,10 +3,11 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
-    if @user && @user.authenticate(params[:session][:password])
-      @user.save!
+    if @user && @user.authenticate(params[:session][:password]) && @user.save
+      @login = true
+      render template: 'users/show'
     else
-      render status: :unprocessable_entity, body: @user.errors.full_messages
+      render status: :unprocessable_entity, body: "Incorrect email or password"
     end
   end
 

@@ -29,7 +29,7 @@ angular.module('microblogApp')
         if (user && user.img) {
           return user.img;
         } else {
-          return null;
+          return 'images/avatar.png';
         }
       },
 
