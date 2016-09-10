@@ -21,6 +21,11 @@ app.config(['$routeProvider',
         controller: 'LoginCtrl',
         activetab: 'login'
       }).
+      when('/feed', {
+        templateUrl: 'views/feed.html',
+        controller: 'FeedCtrl',
+        activetab: 'feed'
+      }).
       when('/users', {
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl',

@@ -12,5 +12,10 @@ Rails.application.routes.draw do
 
   post '/login',      to: 'sessions#create'
   delete '/logout',   to: 'sessions#destroy'
+
+  post '/follow/:followed_id',      to: 'relationships#create'
+  delete '/unfollow/:followed_id',  to: 'relationships#destroy'
+
+  get '/feed',    to: 'feed#show'
   
 end

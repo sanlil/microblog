@@ -129,4 +129,51 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "should follow and unfollow a user" do
+    @user.save!
+    @other_user.save!
+    assert_not @user.following?(@other_user)
+    @user.follow(@other_user)
+    assert @user.following?(@other_user)
+    assert @other_user.followers.include?(@user)
+    @user.unfollow(@other_user)
+    assert_not @user.following?(@other_user)
+  end
+
+  test "cannot follow same twice" do
+    @user.save!
+    @other_user.save!
+    assert_difference '@user.following.count', 1 do
+      @user.follow(@other_user)
+    end
+    assert_no_difference '@user.following.count' do
+      @user.follow(@other_user)
+    end
+  end
+
+  test "feed should have posts" do
+    @user.save!
+    @other_user.save!
+    @user.follow(@other_user)
+
+    # Posts from followed user
+    @other_user.microposts.each do |post_following|
+      assert @user.feed.include?(post_following)
+    end
+    # Posts from self
+    @user.microposts.each do |post_self|
+      assert @user.feed.include?(post_self)
+    end
+  end
+
+  test "feed should not have posts" do
+    @user.save!
+    @other_user.save!
+
+    # Posts from unfollowed user
+    @other_user.microposts.each do |post_unfollowed|
+      assert_not @user.feed.include?(post_unfollowed)
+    end
+  end
+
 end
