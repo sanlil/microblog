@@ -1,0 +1,45 @@
+/* Styling for the feed */
+
+#feed-page {
+    form {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+.feed {
+    .list-group-item {
+        .user-img {
+            /*width: 13.666667%;*/
+            width: 11.666667%;
+
+            img {
+                /*margin-right: 10px;*/
+                border-radius: 5px;
+                width: 65px;
+            }
+        }
+        .content {
+            /*width: 86.333333%;*/
+            width: 88.333333%;
+
+            .list-group-item-heading {
+                .author-name {
+                    font-weight: bold;
+
+                    a {
+                        color: black;
+                    }
+                    a:hover {
+                        color: #555;
+                        text-decoration: none;
+                    }
+                }
+                .delimiter, .publish-date {
+                    color: #777;
+                }
+            }
+        }
+
+    }
+}

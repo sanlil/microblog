@@ -1,0 +1,48 @@
+<div id="feed-page" class="row">
+    <div class="col-sm-12">
+        <ul class="list-group feed">
+            <li class="list-group-item list-group-item-info">
+                <div class="row">
+                    <form class="col-sm-12" ng-submit="createNewPost()">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Write new micropost" maxlength="140" ng-model="newMicropost">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Post</button>
+                          </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11">
+                        <span class="pull-right">{{newMicropost.length || 0}}/140</span>
+                    </div>
+                </div>
+                <div style="color:red" class="row" ng-show="error !== undefined">
+                    <div class="col-sm-12">
+                        <p>
+                            {{error}}<br>
+                            {{exception}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li ng-repeat="micropost in feed" class="list-group-item">
+                <div class="row">
+                    <div class="user-img col-sm-2">
+                        <img ng-src="{{micropost.user.img}}"/>
+                    </div>
+                    <div class="content col-sm-10">
+                            <p class="list-group-item-heading">
+                                <span class="author-name">
+                                    <a ng-href="#/users/{{micropost.user.id}}">{{micropost.user.name}}</a>
+                                </span>
+                                <span class="delimiter"> &bull; </span>
+                                <span class="publish-date">{{micropost.created_at | date:'MMM d'}}, {{micropost.created_at | date:'H:mm'}}</span>
+                            </p>
+                            <p class="list-group-item-text">{{micropost.content}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

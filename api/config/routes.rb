@@ -15,5 +15,7 @@ Rails.application.routes.draw do
 
   post '/follow/:followed_id',      to: 'relationships#create'
   delete '/unfollow/:followed_id',  to: 'relationships#destroy'
+
+  get '/feed',    to: 'feed#show'
   
 end

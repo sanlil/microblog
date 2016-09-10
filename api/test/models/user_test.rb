@@ -151,4 +151,29 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "feed should have posts" do
+    @user.save!
+    @other_user.save!
+    @user.follow(@other_user)
+
+    # Posts from followed user
+    @other_user.microposts.each do |post_following|
+      assert @user.feed.include?(post_following)
+    end
+    # Posts from self
+    @user.microposts.each do |post_self|
+      assert @user.feed.include?(post_self)
+    end
+  end
+
+  test "feed should not have posts" do
+    @user.save!
+    @other_user.save!
+
+    # Posts from unfollowed user
+    @other_user.microposts.each do |post_unfollowed|
+      assert_not @user.feed.include?(post_unfollowed)
+    end
+  end
+
 end
