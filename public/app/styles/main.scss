@@ -3,6 +3,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+$primary-color: #428bca;
+$primary-text-color: #337ab7;
+$secondary-color: #4f9fcf;
+
 /* Include scss files */
 @import 'common';
 @import 'user';
