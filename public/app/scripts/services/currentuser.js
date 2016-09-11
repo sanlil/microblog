@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('microblogApp')
-  .factory('CurrentUserService', function($rootScope, $http, ConfigService) {
+  .factory('CurrentUserService', function($rootScope) {
 
     var user = null;
 
     return {
 
       setUser: function(userData) {
-        console.log('setUser()', userData);
         user = userData;
         $rootScope.$broadcast('user-updated');
       },
@@ -29,7 +28,7 @@ angular.module('microblogApp')
         if (user && user.img) {
           return user.img;
         } else {
-          return null;
+          return 'images/avatar.png';
         }
       },
 

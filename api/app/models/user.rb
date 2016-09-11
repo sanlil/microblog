@@ -48,8 +48,9 @@ class User < ApplicationRecord
   end
 
   def gravatar(size)
+    default_url = "http://www.ssbbs2016.com/assets/avatar-4761a497f0ab9966adfac5a1caf3fe0da770d91c1358e24b76320108fb4e190d.png"
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
-    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}&r=g&d=#{CGI.escape(default_url)}"
   end
 
 end

@@ -1,24 +1,15 @@
 'use strict';
 
 /**
- * @ngdoc function
- * @name microblogApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the microblogApp
+ * Main controller of the microblogApp
  */
 angular.module('microblogApp')
   .controller('MainCtrl', function ($scope, $rootScope, $http, $location, $cookieStore, ConfigService, CurrentUserService) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
 
     $scope.isLoggedIn = false;
 
     var setCurrentUser = function() {
-      if (!CurrentUserService.getUser()) {
+      if (!CurrentUserService.getUser() && ConfigService.getToken()) {
         $http({
           method: 'GET',
           url: ConfigService.apiUrl() + 'user',
@@ -27,22 +18,19 @@ angular.module('microblogApp')
           }
         })
         .success(function(data) {
-          console.log('success');
-          console.log(data);
           CurrentUserService.setUser(data.user);
           console.log('current user is: ', CurrentUserService.getUser());
+          $scope.isLoggedIn = true;
         })
         .error(function(data) {
-          console.log('error');
-          console.log(data);
+          console.log('Unsuccessful get user:', data);
+          $scope.isLoggedIn = false;
         });
       }
     };
     setCurrentUser();
 
     $scope.logout = function() {
-      console.log('CLICK LOGOUT!');
-
       $http({
         method: 'DELETE',
         url: ConfigService.apiUrl() + 'logout',
@@ -50,17 +38,14 @@ angular.module('microblogApp')
           'Authorization': ConfigService.getToken()
         }
       })
-      .success(function (data, status, headers, config) {
-        console.log('data:', data);
-        console.log('status:', status);
+      .success(function (data) {
+        console.log('Logout response:', data);
         $cookieStore.remove('auth_token');
         CurrentUserService.clearUser();
         $location.path('/');
       })
-      .error(function (data, status, headers, config) {
-        console.log( 'failure message: ' + JSON.stringify({data: data}));
-        console.log('data:', data);
-        console.log('status:', status);
+      .error(function (data) {
+        console.log('Unsuccessful logout:', data);
       });
     };
 

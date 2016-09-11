@@ -23,7 +23,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "invalid login" do
     post login_path, params: { session: { email: "user@example.com", password: "foo" } }
     assert_response :unprocessable_entity
-    assert_not JSON.parse(response.body).present?
   end
 
   test "logout" do

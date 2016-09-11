@@ -2,32 +2,102 @@
 
 #user-page {
     .user-info-box {
-        background: #f5f5f5;
-        padding: 15px 0;
+        /*background: #f5f5f5;*/
+        /*background: white;*/
+        background-color: #d9edf7;
+        padding: 15px 0 0;
         border-radius: 5px;
-        margin-bottom: 20px;
+        /*margin-bottom: 20px;*/
         border: 1px solid #ddd;
 
-        h2 {
-            margin-top: 0;
+        .user-profile {
+            margin-bottom: 15px;
+
+            h2 {
+                margin-top: 0;
+            }
+
+            .user-img-wrapper {
+                width: 20%;
+                img {
+                    border-radius: 4px;
+                    width: 100px;
+                }
+            }
+        }
+    }
+
+    ul.nav-tabs {
+        padding-left: 15px;
+
+        li > a {
+            text-align: center;
+
+            .tab-count {
+                font-size: 1.2em;
+            }
         }
 
-        .glyphicon {
+        .glyphicon-pencil {
             font-size: 2em;
-            margin-top: 115px;
             margin-right: 10px;
+            margin-top: 15px;
         }
 
-        .glyphicon:hover {
+        .glyphicon-pencil:hover {
             cursor: pointer;
         }
     }
 
-    .microposts {
+    .tab-content {
+        margin-bottom: -20px;
 
-        .glyphicon:hover {
-            color: gray;
-            cursor: pointer;
+        li.list-group-item {
+            /*border-top: none;*/
+            border-left: none;
+            border-right: none;
+
+            .glyphicon-remove {
+                position: absolute;
+                top: 0px;
+                right: 15px;
+            }
+            .glyphicon-remove:hover {
+                cursor: pointer;
+                color: gray;
+            }
+        }
+        li.list-group-item:first-child {
+            border-top: none;
+        }
+
+        .tab-pane {
+            background-color: white;
+            padding-top: 5px;
+        }
+    }
+
+    .modal {
+        .modal-header {
+            background-color: #f8f8f8;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-align: center;
+        }
+        .modal-footer {
+            background-color: #f8f8f8;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        form {
+            margin-top: 15px;
+
+            .word-count {
+                text-align: right;
+                line-height: 2.3em;
+                color: $primary-text-color;
+            }
         }
     }
 

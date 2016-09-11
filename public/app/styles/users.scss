@@ -1,0 +1,47 @@
+/* Styling for listing users */
+
+.user-list {
+    .list-group-item {
+        .user-img {
+            width: 11.666667%;
+
+            img {
+                border-radius: 5px;
+                width: 65px;
+            }
+        }
+        .content {
+            width: 88.333333%;
+
+            .list-group-item-heading {
+
+                a {
+                    /*color: black;*/
+                    font-weight: bold;
+                }
+                a:hover {
+                    color: #555;
+                    text-decoration: none;
+                }
+            }
+
+            .list-group-item-text {
+                color: #777;
+            }
+        }
+    }
+
+    .list-group-item-info {
+        h3 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+#list-users {
+    .list-group-item:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+}
