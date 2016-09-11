@@ -6,7 +6,6 @@
 angular.module('microblogApp')
   .controller('UsersCtrl', ['$scope', '$http', 'ConfigService',
     function ($scope, $http, ConfigService) {
-      $('.modal-backdrop').hide();
 
       var getAllUsers = function() {
         $http({

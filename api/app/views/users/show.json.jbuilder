@@ -8,8 +8,20 @@ json.user do
   json.img @user.gravatar(100)
   json.microposts @user.microposts
   json.micropost_count @user.microposts.count
-  json.following @user.following
-  json.followers @user.followers
+  json.following @user.following do |following|
+    json.id following.id
+    json.name following.name
+    json.email following.email
+    json.img following.gravatar(70)
+    json.micropost_count following.microposts.count
+  end
+  json.followers @user.followers do |follower|
+    json.id follower.id
+    json.name follower.name
+    json.email follower.email
+    json.img follower.gravatar(70)
+    json.micropost_count follower.microposts.count
+  end
   json.following_count @user.following.count
   json.followers_count @user.followers.count
 end

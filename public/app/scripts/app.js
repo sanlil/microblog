@@ -36,11 +36,6 @@ app.config(['$routeProvider',
         controller: 'UserCtrl',
         activetab: 'users'
       }).
-      when('/create', {
-        templateUrl: 'views/create.html',
-        controller: 'CreateCtrl',
-        activetab: 'create'
-      }).
       otherwise({
         redirectTo: '/'
       });
