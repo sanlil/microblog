@@ -29,6 +29,19 @@
                 color: #777;
             }
         }
+    }
 
+    .list-group-item-info {
+        h3 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+#list-users {
+    .list-group-item:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
     }
 }
