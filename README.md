@@ -12,10 +12,10 @@ The API, developed using Ruby on Rails, is defined in `api/` where the interesti
 `api/test/models`  
 
 ### AngularJS single-page app
-The interface can be found in is `public/` and is a single-page app in AngularJS comunicating with the API. The most interesting folders are:  
-`public/app/scripts/controllers`
-`public/app/scripts/services`
-`public/app/styles`
+The interface can be found in `public/` and is a single-page app in AngularJS comunicating with the API. The most interesting folders are:  
+`public/app/scripts/controllers`  
+`public/app/scripts/services`  
+`public/app/styles`  
 `public/app/views`
 
 ## Run Ruby server locally
