@@ -79,6 +79,7 @@ angular.module('microblogApp')
         .success(function(data) {
           console.log('follow user response', data);
           CurrentUserService.setUser(data.user);
+          getUserData();
         })
         .error(function(data) {
           console.log('could not follow user', data);
@@ -96,6 +97,7 @@ angular.module('microblogApp')
         .success(function(data) {
           console.log('unfollow user response', data);
           CurrentUserService.setUser(data.user);
+          getUserData();
         })
         .error(function(data) {
           console.log('could not unfollow user', data);
