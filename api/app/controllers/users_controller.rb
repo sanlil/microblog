@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_with_token, except: [:create]
+  before_action :authenticate_with_token, except: [:show, :list, :create]
     
   def show
     #puts params.inspect
