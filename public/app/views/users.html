@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </li>
-            <li ng-repeat="user in users | filter : userSearch" ng-click="goToUser(user.id)" class="list-group-item">
+            <li ng-repeat="user in users | filter : userSearch" ng-click="goToUser(user.id)" class="list-group-item user-item">
                 <div class="row">
                     <div class="user-img col-sm-2">
                         <img ng-src="{{user.img || 'images/avatar.png'}}"/>
