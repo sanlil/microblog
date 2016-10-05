@@ -68,7 +68,7 @@
                                                     <span class="publish-date">{{micropost.created_at | date:'MMM d'}}, {{micropost.created_at | date:'H:mm'}}</span>
                                                 </p>
                                                 <p class="list-group-item-text">{{micropost.content}}</p>
-                                                <span class="glyphicon glyphicon-remove pull-right" ng-click="deletePost(micropost.id)"></span>
+                                                <span class="glyphicon glyphicon-remove pull-right" ng-click="deletePost(micropost.id)" ng-show="isOwnProfilePage()"></span>
                                             </div>
                                         </div>
                                     </li>
