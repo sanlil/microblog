@@ -4,8 +4,8 @@
  * Controller for showing a user's feed
  */
 angular.module('microblogApp')
-  .controller('FeedCtrl', ['$scope', '$http', 'ConfigService',
-    function ($scope, $http, ConfigService) {
+  .controller('FeedCtrl', ['$scope', '$http', 'ConfigService', 'CurrentUserService',
+    function ($scope, $http, ConfigService, CurrentUserService) {
 
       var getFeed = function() {
         $http({
@@ -44,6 +44,27 @@ angular.module('microblogApp')
             $scope.exception = data.exception;
           });
         }
+      };
+
+      $scope.isCurrentUser = function(userId) {
+        return CurrentUserService.getId() === userId;
+      };
+
+      $scope.deletePost = function(micropostId) {
+        $http({
+          method: 'DELETE',
+          url: ConfigService.apiUrl() + 'microposts/' + micropostId,
+          headers: {
+            'Authorization': ConfigService.getToken()
+          }
+        })
+        .success(function(data) {
+          console.log('delete post response: ', data);
+          getFeed();
+        })
+        .error(function(data) {
+          console.log('could not delete post:', data);
+        });
       };
 
     }

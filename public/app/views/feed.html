@@ -40,6 +40,7 @@
                                 <span class="publish-date">{{micropost.created_at | date:'MMM d'}}, {{micropost.created_at | date:'H:mm'}}</span>
                             </p>
                             <p class="list-group-item-text">{{micropost.content}}</p>
+                            <span class="glyphicon glyphicon-remove pull-right" ng-click="deletePost(micropost.id)" ng-show="isCurrentUser(micropost.user.id)"></span>
                     </div>
                 </div>
             </li>

@@ -20,6 +20,17 @@
         .content {
             width: 88.333333%;
 
+            .glyphicon-remove {
+                position: absolute;
+                top: 0px;
+                right: 15px;
+                color: #ddd;
+            }
+            .glyphicon-remove:hover {
+                cursor: pointer;
+                color: gray;
+            }
+
             .list-group-item-heading {
                 .author-name {
                     font-weight: bold;
