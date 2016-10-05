@@ -10,8 +10,9 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_with_token
-    render json: { errors: "Not authenticated" },
-                status: :unauthorized unless logged_in?
+    unless logged_in?
+      render json: { errors: "Not authenticated" }, status: :unauthorized
+    end
   end
 
   def logged_in?

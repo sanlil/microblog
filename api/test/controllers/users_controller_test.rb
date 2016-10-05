@@ -19,10 +19,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert "Second User", users[1]["name"]
   end
 
-  test "anauthorized request" do
-    get users_path, headers: { "Authorization" => "" }
+  test "unauthorized request" do
+    get user_path, headers: { "Authorization" => "" }
     assert_response :unauthorized
-    assert_not JSON.parse(response.body)["users"].present?
+    assert_not JSON.parse(response.body)["user"].present?
   end
 
   test "show user" do
