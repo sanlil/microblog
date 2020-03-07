@@ -1,5 +1,5 @@
-# micropost-app
-A microblog built using Ruby on Rails and AngularJS, inspired by the [RoR tutorial by Michael Hartl](http://apionrails.icalialabs.com/book/).
+# Microblog
+A full-stack microblog built using Ruby on Rails and AngularJS, loosely inspired by the [RoR tutorial by Michael Hartl](http://apionrails.icalialabs.com/book/).
 
 ## Project structure
 ### Ruby API
@@ -20,16 +20,22 @@ The interface can be found in `public/` and is a single-page app in AngularJS co
 
 ## Run Ruby server locally
 ### Make sure to have installed
-- ruby 3.2.0
-- rails 5.0.0
+- ruby 3.2.0 (or higher)
+- rails 5.0.0 (or higher)
 
 ### Install dependencies
-`cd micropost-app/api/`  
+`cd api/`  
 `bundle install`
 
 ### Create db and migrate schema
 `rake db:create`  
 `rake db:migrate`
+
+### Add a secret (for Rails > 4)
+Generate a random secret key value:  
+`bundle exec rake secret`  
+Copy the generated value and put it in config/initializers/secret_token.rb:  
+`Microblog::Application.config.secret_key_base = 'your-secret'`
 
 ### Run server
 `rails s`
@@ -44,12 +50,13 @@ The interface can be found in `public/` and is a single-page app in AngularJS co
 - compass (gem install compass)
 
 ### Install dependencies
-`cd micropost-app/public/`  
+`cd public/`  
 `npm install`  
 `bower update`
 
 ### Run server
-`grunt serve`
+`grunt serve` 
+If needed add (`--force`)
 
 ### Browse
 http://localhost:9000/ will automatically be opened in your default browser
